@@ -20,9 +20,7 @@ const AppLayout = ({ Component, props, onLogout }) => {
     const dispatch = useDispatch();
     const logoutHandler = async () => {
         try {
-            const { data } = await axios.post(`${server}/api/auth/logout`, {
-                withCredentials: true
-            })
+            const { data } = await axios.post(`${server}/api/auth/logout`, {}, { withCredentials: true })
             dispatch(userNotExists())
             toast.success(data.message)
         } catch (error) {
@@ -71,7 +69,7 @@ const AppLayout = ({ Component, props, onLogout }) => {
                 />
 
                 <div className="sm:text-xl font-bold text-gray-700  flex flex-row gap-1 sm:gap-4">
-                    Infinite Void <CircleLoader size={"sm:2rem"} />
+                    Infinite Void <CircleLoader size={"1.5rem"} />
                 </div>
 
                 <div className="flex items-center gap-4">
@@ -103,7 +101,7 @@ const AppLayout = ({ Component, props, onLogout }) => {
                     <>
                         {/* Backdrop */}
                         <div
-                            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                            className="fixed inset-0 bg-[rgba(0,0,0,0.1)] z-40"
                             onClick={() => setIsDrawerOpen(false)}
                         ></div>
 
