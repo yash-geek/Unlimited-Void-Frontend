@@ -7,8 +7,8 @@ import toast from "react-hot-toast"
 const NewUploader = ({ folderId }) => {
     const [mode, setMode] = useState(null) // "folder" | "file"
     const [folderName, setFolderName] = useState("")
-    const [createFolder] = useCreateFolderMutation()
-    const [uploadFile] = useUploadFileMutation()
+    const [createFolder, {isLoading: createFolderLoading}] = useCreateFolderMutation()
+    const [uploadFile, {isLoading: createFileLoading}] = useUploadFileMutation()
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         multiple: false,
@@ -46,12 +46,14 @@ const NewUploader = ({ folderId }) => {
             {!mode ? (
                 <div className="flex gap-4">
                     <button
+                        disabled={createFileLoading || createFolderLoading}
                         className="px-4 py-2 bg-blue-500 text-white rounded flex items-center gap-2"
                         onClick={() => setMode("folder")}
                     >
                         <MdAddCircle /> New Folder
                     </button>
                     <button
+                        disabled={createFileLoading || createFolderLoading}
                         className="px-4 py-2 bg-green-500 text-white rounded flex items-center gap-2"
                         onClick={() => setMode("file")}
                     >
@@ -68,12 +70,14 @@ const NewUploader = ({ folderId }) => {
                         className="border px-2 py-1 rounded"
                     />
                     <button
+                        disabled={createFileLoading || createFolderLoading}
                         className="px-3 py-1 bg-blue-500 text-white rounded"
                         onClick={handleCreateFolder}
                     >
                         Create
                     </button>
                     <button
+                        disabled={createFileLoading || createFolderLoading}
                         className="px-3 py-1 bg-gray-400 text-white rounded"
                         onClick={() => setMode(null)}
                     >
@@ -89,6 +93,7 @@ const NewUploader = ({ folderId }) => {
                     <input {...getInputProps()} />
                     <p>Drag & drop a file here, or click to select</p>
                     <button
+                        disabled={createFileLoading || createFolderLoading}
                         className="mt-2 px-3 py-1 bg-gray-400 text-white rounded"
                         onClick={(e) => {
                             e.stopPropagation()
