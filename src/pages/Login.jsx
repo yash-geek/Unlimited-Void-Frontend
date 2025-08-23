@@ -29,7 +29,6 @@ const Login = () => {
             }
         }
         const payload = { email: email.value, password: password.value };
-        console.log("Login Payload:", payload);
         try {
             const { data } = await axios.post(`${server}/api/auth/login`, payload, config)
             dispatch(userExists(data.user))
@@ -41,7 +40,6 @@ const Login = () => {
         finally {
             setIsLoading(false)
         }
-        //console.log(payload)
     };
 
     // handle Signup

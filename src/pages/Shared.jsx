@@ -2,6 +2,7 @@ import React from "react"
 import { useGetSharedWithMeQuery } from "../redux/api/api"
 import FileCard from "../components/specifics/FileCard"
 import Loading from "../components/layouts/Loading"
+import toast from "react-hot-toast"
 
 const Shared = () => {
   const { data, isLoading, error } = useGetSharedWithMeQuery()
@@ -19,8 +20,9 @@ const Shared = () => {
       link.remove()
 
       window.URL.revokeObjectURL(url)
+      toast.success("Download Started")
     } catch (err) {
-      console.error("Download failed", err)
+      toast.error("Download failed", err)
     }
   }
   if (isLoading) return <Loading />

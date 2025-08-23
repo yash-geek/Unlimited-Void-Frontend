@@ -45,8 +45,9 @@ const Home = () => {
       link.remove()
 
       window.URL.revokeObjectURL(url)
+      toast.success("Download Started")
     } catch (err) {
-      console.error("Download failed", err)
+      toast.error("Download failed")
     }
   }
 

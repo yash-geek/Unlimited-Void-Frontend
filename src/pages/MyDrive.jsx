@@ -46,11 +46,11 @@ const MyDrive = () => {
             link.remove();
 
             window.URL.revokeObjectURL(url);
+            toast.success("Download Started");
         } catch (err) {
-            console.error("Download failed", err);
+            toast.error("Download failed");
         }
     };
-    console.log(data)
 
     if (isLoading) return <Loading />;
     if (error) return <p className="text-red-500">Failed to load folder</p>;

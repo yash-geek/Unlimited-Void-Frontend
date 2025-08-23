@@ -45,7 +45,6 @@ const Trash = () => {
       }
     } catch (err) {
       toast.error("Permanent delete failed")
-      console.error(err)
     }
   }
 
@@ -63,8 +62,9 @@ const Trash = () => {
       link.remove()
 
       window.URL.revokeObjectURL(url)
+      toast.success("Download Started")
     } catch (err) {
-      console.error("Download failed", err)
+      toast.error("Download failed", err)
     }
   }
 

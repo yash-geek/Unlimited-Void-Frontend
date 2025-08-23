@@ -15,8 +15,7 @@ const OptionsMenu = ({ onDelete, onRestore, onDownload, isFile, fileId, actions 
       toast.success("Public link copied to clipboard!")
       setOpen(false)
     } catch (err) {
-      toast.error("Failed to generate public link")
-      console.error(err)
+      toast.error("Failed to generate public link ")
     }
   }
 
