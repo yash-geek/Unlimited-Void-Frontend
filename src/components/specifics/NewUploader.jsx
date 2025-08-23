@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { useCreateFolderMutation, useUploadFileMutation } from "../../redux/api/api"
 import { MdAddCircle, MdUploadFile } from "react-icons/md"
+import toast from "react-hot-toast"
 
 const NewUploader = ({ folderId }) => {
     const [mode, setMode] = useState(null) // "folder" | "file"
@@ -14,17 +15,30 @@ const NewUploader = ({ folderId }) => {
         onDrop: async (acceptedFiles) => {
             const file = acceptedFiles[0]
             if (file) {
-                await uploadFile({ file, folderId })
-                setMode(null)
+                const toastId = toast.loading(`Uploading ${file.name}... ⏳`)
+                try {
+                    await uploadFile({ file, folderId: folderId === "root" ? null : folderId }).unwrap()
+
+                    toast.success(`${file.name} uploaded successfully! 🎉`, { id: toastId })
+                    setMode(null)
+                } catch (error) {
+                    toast.error(`Failed to upload ${file.name} 💔`, { id: toastId })
+                }
             }
         },
     })
 
     const handleCreateFolder = async () => {
         if (!folderName.trim()) return
-        await createFolder({ name: folderName, parent_id: folderId })
-        setFolderName("")
-        setMode(null)
+        const toastId = toast.loading(`Creating folder "${folderName}"... ⏳`)
+        try {
+            await createFolder({ name: folderName, parent_id: folderId === "root" ? null : folderId }).unwrap()
+            toast.success(`Folder "${folderName}" created! 📁`, { id: toastId })
+            setFolderName("")
+            setMode(null)
+        } catch (error) {
+            toast.error("Failed to create folder 💔", { id: toastId })
+        }
     }
 
     return (
@@ -35,13 +49,13 @@ const NewUploader = ({ folderId }) => {
                         className="px-4 py-2 bg-blue-500 text-white rounded flex items-center gap-2"
                         onClick={() => setMode("folder")}
                     >
-                        <MdAddCircle/> New Folder
+                        <MdAddCircle /> New Folder
                     </button>
                     <button
                         className="px-4 py-2 bg-green-500 text-white rounded flex items-center gap-2"
                         onClick={() => setMode("file")}
                     >
-                        <MdUploadFile/> Upload File
+                        <MdUploadFile /> Upload File
                     </button>
                 </div>
             ) : mode === "folder" ? (
@@ -73,11 +87,7 @@ const NewUploader = ({ folderId }) => {
                         }`}
                 >
                     <input {...getInputProps()} />
-                    {isDragActive ? (
-                        <p>Drop the file here...</p>
-                    ) : (
-                        <p>Drag & drop a file here, or click to select</p>
-                    )}
+                    <p>Drag & drop a file here, or click to select</p>
                     <button
                         className="mt-2 px-3 py-1 bg-gray-400 text-white rounded"
                         onClick={(e) => {
