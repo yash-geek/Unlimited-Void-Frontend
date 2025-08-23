@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 import Loading from "../components/layouts/Loading";
 
 const MyDrive = () => {
-    const { "*": folderId } = useParams(); // catch dynamic id
+    const { "*": folderId } = useParams(); 
     const navigate = useNavigate();
 
     const currentId = folderId || "root";
@@ -90,7 +90,7 @@ const MyDrive = () => {
                             folder={f}
                             onDelete={() => handleMoveToTrash(f.id, f.name, "folder")}
                             actions={["trash"]}
-                            onOpen={() => navigate(`/my-drive/${f.id}`)} // ✅ now by id not path
+                            onOpen={() => navigate(`/my-drive/${f.id}`)} 
                         />
                     ))
                 ) : (

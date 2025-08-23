@@ -1,11 +1,11 @@
 import React from 'react'
-import { ScaleLoader } from 'react-spinners'
+import { CircleLoader } from 'react-spinners'
 const LayoutLoader = () => {
     return (
         <div
             className='bg-gray-300 h-svh w-svw flex items-center justify-center'
         >
-            <ScaleLoader
+            <CircleLoader
 
                 height={'10vh'}
 

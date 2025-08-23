@@ -9,10 +9,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { server } from './constants/config'
 import { userExists, userNotExists } from './redux/reducers/auth'
-import Home from './pages/Home'
-import MyDrive from './pages/MyDrive'
-import Shared from './pages/Shared'
-import Trash from './pages/Trash'
+
+
+
+const Trash = React.lazy(() => import('./pages/Trash'))
+const Shared = React.lazy(() => import('./pages/Shared'))
+const MyDrive = React.lazy(() => import('./pages/MyDrive'))
+const Home = React.lazy(() => import('./pages/Home'))
+
 const App = () => {
   const { user, loader } = useSelector((state) => state.auth)
   const dispatch = useDispatch();
