@@ -2,6 +2,7 @@ import React from "react"
 import OptionsMenu from "./OptionsMenu"
 
 const FileCard = ({ file, onDelete, onDownload, onRestore, actions = [] }) => {
+  console.log(file)
   const isImage = file.type?.startsWith("image/")
   const isVideo = file.type?.startsWith("video/")
   const isAudio = file.type?.startsWith("audio/")

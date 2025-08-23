@@ -42,7 +42,6 @@ const Shared = () => {
               file={file}
               actions={["download"]} 
               onDownload={() => handleDownload(file)}
-              // only allow viewing/downloading
             />
           ))
         ) : (
@@ -50,7 +49,6 @@ const Shared = () => {
         )}
       </div>
 
-      {/* Folders (future) */}
       <h2 className="font-semibold mt-6 mb-2">Folders</h2>
       <p>Folder sharing not implemented yet</p>
     </div>
