@@ -27,6 +27,8 @@ const App = () => {
       .catch((err) => dispatch(userNotExists()))
   }, [dispatch])
   return (
+    loader?
+    (<LayoutLoader/>):
     <Router>
       <Suspense fallback={<LayoutLoader />}>
         <Routes>

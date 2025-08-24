@@ -14,7 +14,7 @@ const ShareButton = ({ fileId, onCloseMenu }) => {
       await inviteUser({ fileId, email, role }).unwrap()
       toast.success(`Invited ${email} as ${role}`)
       setEmail("")
-      onCloseMenu?.() // close OptionsMenu after success
+      onCloseMenu?.() 
     } catch (err) {
       toast.error(err?.data?.message || "Invite failed")
     }
